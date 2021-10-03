@@ -22,7 +22,7 @@ You can use [`RawNode::new`] to create the Raft node. To create the Raft node, y
 provide a [`Storage`] component, and a [`Config`] to the [`RawNode::new`] function.
 
 ```rust
-use raft::{
+use fleetfs_raft::{
     Config,
     storage::MemStorage,
     raw_node::RawNode,
@@ -53,7 +53,7 @@ channel `recv_timeout` to drive the Raft node at least every 100ms, calling
 
 ```rust
 # use slog::{Drain, o};
-# use raft::{Config, storage::MemStorage, raw_node::RawNode};
+# use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode};
 # let config = Config { id: 1, ..Default::default() };
 # let store = MemStorage::new_with_conf_state((vec![1], vec![]));
 # let logger = slog::Logger::root(slog_stdlog::StdLog.fuse(), o!());
@@ -113,7 +113,7 @@ You can call the `step` function when you receive the Raft messages from other n
 Here is a simple example to use `propose` and `step`:
 
 ```rust
-# use raft::{Config, storage::MemStorage, raw_node::RawNode, eraftpb::Message};
+# use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode, eraftpb::Message};
 # use std::{
 #     sync::mpsc::{channel, RecvTimeoutError},
 #     time::{Instant, Duration},
@@ -181,7 +181,7 @@ state:
 
 ```rust
 # use slog::{Drain, o};
-# use raft::{Config, storage::MemStorage, raw_node::RawNode};
+# use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode};
 #
 # let config = Config { id: 1, ..Default::default() };
 # config.validate().unwrap();
@@ -205,7 +205,7 @@ other nodes:
 
     ```rust
     # use slog::{Drain, o};
-    # use raft::{Config, storage::MemStorage, raw_node::RawNode, StateRole};
+    # use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode, StateRole};
     #
     # let config = Config { id: 1, ..Default::default() };
     # config.validate().unwrap();
@@ -230,7 +230,7 @@ a Raft snapshot from the leader and we must apply the snapshot:
 
     ```rust
     # use slog::{Drain, o};
-    # use raft::{Config, storage::MemStorage, raw_node::RawNode};
+    # use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode};
     #
     # let config = Config { id: 1, ..Default::default() };
     # config.validate().unwrap();
@@ -259,7 +259,7 @@ need to update the applied index and resume `apply` later:
 
     ```rust
     # use slog::{Drain, o};
-    # use raft::{Config, storage::MemStorage, raw_node::RawNode, eraftpb::EntryType};
+    # use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode, eraftpb::EntryType};
     #
     # let config = Config { id: 1, ..Default::default() };
     # config.validate().unwrap();
@@ -272,13 +272,13 @@ need to update the applied index and resume `apply` later:
     # }
     # let mut ready = node.ready();
     #
-    # fn handle_conf_change(e:  raft::eraftpb::Entry) {
+    # fn handle_conf_change(e:  fleetfs_raft::eraftpb::Entry) {
     # }
     #
-    # fn handle_conf_change_v2(e:  raft::eraftpb::Entry) {
+    # fn handle_conf_change_v2(e:  fleetfs_raft::eraftpb::Entry) {
     # }
     #
-    # fn handle_normal(e:  raft::eraftpb::Entry) {
+    # fn handle_normal(e:  fleetfs_raft::eraftpb::Entry) {
     # }
     #
     let mut _last_apply_index = 0;
@@ -314,7 +314,7 @@ entries but have not been committed yet, we must append the entries to the Raft 
 
     ```rust
     # use slog::{Drain, o};
-    # use raft::{Config, storage::MemStorage, raw_node::RawNode};
+    # use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode};
     #
     # let config = Config { id: 1, ..Default::default() };
     # config.validate().unwrap();
@@ -340,7 +340,7 @@ We must persist the changed `HardState`:
 
     ```rust
     # use slog::{Drain, o};
-    # use raft::{Config, storage::MemStorage, raw_node::RawNode};
+    # use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode};
     #
     # let config = Config { id: 1, ..Default::default() };
     # config.validate().unwrap();
@@ -364,7 +364,7 @@ other nodes after persisting hardstate, entries and snapshot:
 
     ```rust
     # use slog::{Drain, o};
-    # use raft::{Config, storage::MemStorage, raw_node::RawNode, StateRole};
+    # use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode, StateRole};
     #
     # let config = Config { id: 1, ..Default::default() };
     # config.validate().unwrap();
@@ -390,8 +390,8 @@ to advance the applied index inside.
 
     ```rust
     # use slog::{Drain, o};
-    # use raft::{Config, storage::MemStorage, raw_node::RawNode};
-    # use raft::eraftpb::{EntryType, Entry, Message};
+    # use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode};
+    # use fleetfs_raft::eraftpb::{EntryType, Entry, Message};
     #
     # let config = Config { id: 1, ..Default::default() };
     # config.validate().unwrap();
@@ -447,7 +447,7 @@ the following:
 
 For example to promote a learner 4 and demote an existing voter 3:
 ```no_run
-# use raft::{Config, storage::MemStorage, raw_node::RawNode, eraftpb::*};
+# use fleetfs_raft::{Config, storage::MemStorage, raw_node::RawNode, eraftpb::*};
 # use protobuf::Message as PbMessage;
 # use slog::{Drain, o};
 #
@@ -548,7 +548,7 @@ pub mod prelude {
     //! library's prelude you'll have to do so manually:
     //!
     //! ```
-    //! use raft::prelude::*;
+    //! use fleetfs_raft::prelude::*;
     //! ```
     //!
     //! The prelude may grow over time as additional items see ubiquitous use.

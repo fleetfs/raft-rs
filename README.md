@@ -1,9 +1,9 @@
 # Raft
 
-[![Build Status](https://travis-ci.org/tikv/raft-rs.svg?branch=master)](https://travis-ci.org/tikv/raft-rs)
-[![Documentation](https://docs.rs/raft/badge.svg)](https://docs.rs/raft/)
-[![Crates.io](https://img.shields.io/crates/v/raft.svg)](https://crates.io/crates/raft)
-[![dependency status](https://deps.rs/repo/github/tikv/raft-rs/status.svg)](https://deps.rs/repo/github/tikv/raft-rs)
+[![Build Status](https://travis-ci.org/fleetfs/raft-rs.svg?branch=master)](https://travis-ci.org/fleetfs/raft-rs)
+[![Documentation](https://docs.rs/fleetfs_raft/badge.svg)](https://docs.rs/fleetfs_raft/)
+[![Crates.io](https://img.shields.io/crates/v/fleetfs_raft.svg)](https://crates.io/crates/fleetfs_raft)
+[![dependency status](https://deps.rs/repo/github/fleetfs/raft-rs/status.svg)](https://deps.rs/repo/github/fleetfs/raft-rs)
 
 ## Problem and Importance
 
